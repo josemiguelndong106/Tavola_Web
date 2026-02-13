@@ -1,0 +1,339 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+:host {
+  display: block;
+  background-color: #F9F9F7; /* Fondo Crema */
+  min-height: 100vh;
+  font-family: 'Lato', sans-serif;
+  padding-top: 2rem;
+}
+
+.reservation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.form-wrapper {
+  background: white;
+  padding: 3rem;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 10px 30px rgba(78, 95, 43, 0.08); /* Sombra suave verdosa */
+  border-radius: 4px;
+  border-top: 5px solid #4E5F2B; /* Detalle elegante arriba */
+}
+
+/* Encabezados */
+.header-text {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  color: #4E5F2B; /* Verde Oliva */
+  font-size: 2.5rem;
+  font-style: italic;
+  margin: 0.5rem 0;
+}
+
+.subtitle {
+  color: #888;
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+p { color: #666; font-size: 0.95rem; }
+
+/* Formulario */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.row {
+  display: flex;
+  gap: 1.5rem;
+}
+.row .form-group { flex: 1; }
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: bold;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  background-color: #FAFAFA;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4E5F2B;
+  background-color: white;
+}
+
+/* Botón Estilo La Tavola */
+.btn-olive {
+  width: 100%;
+  background-color: #4E5F2B;
+  color: white;
+  padding: 15px;
+  border: none;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 1rem;
+}
+
+.btn-olive:hover {
+  background-color: #3b4921;
+}
+
+.btn-olive:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Alertas */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  text-align: center;
+}
+.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+
+.reservation-layout {
+  display: flex;
+  gap: 3rem; /* Espacio entre el formulario y el carrito */
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: flex-start;
+  padding: 2rem 0;
+}
+
+/* El formulario ocupa más espacio */
+.form-wrapper {
+  flex: 1.5;
+}
+
+/* El carrito ocupa menos y tiene un estilo lateral */
+.cart-summary {
+  flex: 1;
+  background: white;
+  padding: 2rem;
+  border: 1px solid rgba(78, 95, 43, 0.2);
+  border-radius: 4px;
+  position: sticky; /* Se queda fijo al hacer scroll */
+  top: 100px;
+}
+
+.btn-clear {
+  margin-top: 1rem;
+  background: none;
+  border: none;
+  color: #888;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.btn-clear:hover {
+  color: #4E5F2B;
+}
+
+/* Responsive: en móviles se ponen uno debajo de otro */
+@media (max-width: 900px) {
+  .reservation-layout {
+    flex-direction: column;
+  }
+}
+
+.cart-summary h3 {
+  font-family: 'Playfair Display', serif;
+  color: #4E5F2B;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px dashed #eee;
+  font-size: 0.9rem;
+}
+
+.total {
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  color: #4E5F2B;
+}
+
+.note {
+  font-size: 0.75rem;
+  color: #888;
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+
+
+.main-footer {
+  background-color: #F9F9F7; /* Fondo Crema */
+  border-top: 1px solid rgba(78, 95, 43, 0.1); /* Línea sutil verde arriba */
+  padding: 5rem 2rem 2rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+/* 1. Brand */
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #4E5F2B; /* Verde Oliva */
+  margin: 0;
+  font-style: italic;
+}
+
+.footer-tagline {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.footer-desc {
+  font-family: 'Lato', sans-serif;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* 2. Navegación Principal */
+.footer-nav {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.footer-nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.3s;
+  position: relative;
+}
+
+/* Efecto hover elegante (subrayado animado) */
+.footer-nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -4px;
+  left: 0;
+  background-color: #4E5F2B;
+  transition: width 0.3s;
+}
+
+.footer-nav a:hover { color: #4E5F2B; }
+.footer-nav a:hover::after { width: 100%; }
+
+/* 3. Iconos Sociales SVG */
+.social-icons {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.icon-link {
+  color: #4E5F2B;
+  transition: transform 0.3s, color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+}
+
+.icon-link:hover {
+  color: #3b4921;
+  transform: translateY(-3px); /* Pequeño salto al pasar el ratón */
+  background-color: rgba(78, 95, 43, 0.05);
+}
+
+/* 4. Legal */
+.footer-legal {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 2rem;
+  width: 100%;
+}
+
+.legal-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.legal-links a {
+  color: #999;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.2s;
+}
+
+.legal-links a:hover { color: #4E5F2B; }
+
+.copyright {
+  color: #bbb;
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .footer-nav { flex-direction: column; gap: 1rem; }
+  .legal-links { flex-direction: column; gap: 0.5rem; }
+}

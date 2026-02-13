@@ -1,0 +1,95 @@
+<div class="reservation-container">
+  <div class="reservation-layout">
+    
+    <div class="form-wrapper">
+      <div class="header-text">
+        <span class="subtitle">RESERVA TU MESA</span>
+        <h1>Una Velada Inolvidable</h1>
+        <p>Asegure su experiencia gastronómica con nosotros.</p>
+      </div>
+
+      <div *ngIf="mensaje" class="alert" [ngClass]="tipoMensaje">
+        {{ mensaje }}
+      </div>
+
+      <form (ngSubmit)="confirmarReserva()" #reservaForm="ngForm">
+        <div class="form-group">
+          <label>Nombre Completo</label>
+          <input type="text" [(ngModel)]="reserva.clienteNombre" name="nombre" required placeholder="Ej. Juan Pérez">
+        </div>
+
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <input type="email" [(ngModel)]="reserva.email" name="email" required placeholder="ejemplo@correo.com">
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label>Fecha</label>
+            <input type="date" [(ngModel)]="reserva.fecha" name="fecha" required>
+          </div>
+          <div class="form-group">
+            <label>Hora</label>
+            <input type="time" [(ngModel)]="reserva.hora" name="hora" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Número de Mesa</label>
+          <input type="number" [(ngModel)]="reserva.mesaId" name="mesaId" required placeholder="Ej. 3">
+        </div>
+
+        <button type="submit" class="btn-olive" [disabled]="!reservaForm.form.valid">
+          CONFIRMAR RESERVA
+        </button>
+      </form>
+    </div>
+
+    <div class="cart-summary" *ngIf="itemsCarrito.length > 0">
+      <h3>Tu Selección</h3>
+      <div class="cart-items">
+        <div *ngFor="let item of itemsCarrito" class="cart-item">
+          <span>{{ item.nombre }}</span>
+          <span class="price">{{ item.precio | currency:'EUR' }}</span>
+        </div>
+      </div>
+      <div class="total">
+        <strong>Total Pre-pedido:</strong>
+        <span class="total-amount">{{ totalCarrito | currency:'EUR' }}</span>
+      </div>
+      <p class="note">* El pago de las consumiciones se realizará en el restaurante.</p>
+      <button class="btn-clear" (click)="cartService.limpiarCarrito()">Cambiar selección</button>
+    </div>
+
+  </div>
+</div>
+
+<footer class="main-footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <h2 class="footer-logo">La Tavola</h2>
+      <span class="footer-tagline">360 RESTAURANT MANAGEMENT</span>
+      <p class="footer-desc">
+        Una experiencia gastronómica dedicada a la excelencia, <br>
+        la tradición mediterránea y el buen gusto.
+      </p>
+    </div>
+    <nav class="footer-nav">
+      <a routerLink="/home">Inicio</a>
+      <a routerLink="/menu">Nuestra Carta</a>
+      <a routerLink="/reservas">Reservas</a>
+      <a routerLink="/nosotros">Nosotros</a>
+      <a routerLink="/contacto">Contacto</a>
+    </nav>
+    
+    <div class="footer-legal">
+      <div class="legal-links">
+        <a href="#">Aviso Legal</a>
+        <a href="#">Política de Privacidad</a>
+        <a href="#">Cookies</a>
+        <a href="#">Alérgenos</a>
+      </div>
+      <p class="copyright">© 2026 La Tavola Restaurant. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
