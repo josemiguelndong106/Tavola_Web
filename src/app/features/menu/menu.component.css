@@ -229,6 +229,19 @@ h1 {
   background-color: rgba(78, 95, 43, 0.05);
 }
 
+.staff-access {
+  font-weight: bold;
+  color: #999;
+  transition: color 0.3s ease;
+}
+
+.staff-access:hover {
+  color: #4E5F2B !important; /* Tu verde oliva para indicar acción */
+  cursor: pointer;
+}
+
+
+
 /* 4. Legal */
 .footer-legal {
   border-top: 1px solid #e0e0e0;

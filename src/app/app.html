@@ -14,11 +14,20 @@
     <h3>Asistente La Tavola</h3>
     <p>¿En qué puedo ayudarte hoy?</p>
   </div>
+
   <div class="chat-body">
-    <div class="message bot">Hola! Soy tu asistente. ¿Quieres que te recomiende algún plato de nuestra carta? 🍝</div>
+    <div *ngFor="let m of mensajes" [ngClass]="['message', m.emisor]">
+      {{ m.texto }}
+    </div>
   </div>
+
   <div class="chat-footer">
-    <input type="text" placeholder="Escribe tu duda...">
-    <button>Enviar</button>
+    <input 
+      type="text" 
+      [(ngModel)]="nuevoMensaje" 
+      (keyup.enter)="enviarMensaje()" 
+      placeholder="Escribe tu duda..."
+    >
+    <button (click)="enviarMensaje()">Enviar</button>
   </div>
 </div>

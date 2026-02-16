@@ -28,50 +28,53 @@ export class ReservationsComponent implements OnInit {
   mensaje = '';
   tipoMensaje: 'success' | 'error' | '' = '';
 
-  // ÚNICO CONSTRUCTOR: Inyectamos todos los servicios aquí
+
   constructor(
     private reservaService: ReservaService, 
     public cartService: CartService 
   ) {}
 
   ngOnInit() {
-    // Escuchar cambios en el carrito
+
     this.cartService.cart$.subscribe(items => {
       this.itemsCarrito = items;
       this.totalCarrito = this.cartService.calcularTotal();
     });
   }
 
-  confirmarReserva(): void {
-    if (
-      this.reserva.mesaId === null ||
-      !this.reserva.fecha ||
-      !this.reserva.hora
-    ) {
-      this.mostrarMensaje('Por favor completa todos los campos', 'error');
-      return;
-    }
-
-    const reservaDTO: ReservaDTO = {
-      clienteNombre: this.reserva.clienteNombre,
-      email: this.reserva.email,
-      fecha: this.reserva.fecha,
-      hora: this.reserva.hora + ':00',
-      mesaId: this.reserva.mesaId
-    };
-
-    this.reservaService.crearReserva(reservaDTO).subscribe({
-      next: () => {
-        this.mostrarMensaje('¡Reserva confirmada con éxito!', 'success');
-        this.limpiarFormulario();
-        this.cartService.limpiarCarrito(); // Opcional: limpiar carrito al terminar
-      },
-      error: (error: any) => {
-        const msg = typeof error?.error === 'string' ? error.error : 'Error al conectar con el servidor';
-        this.mostrarMensaje(msg, 'error');
-      }
-    });
+confirmarReserva(): void {
+  if (!this.reserva.clienteNombre || !this.reserva.email || this.reserva.mesaId === null) {
+    this.mostrarMensaje('Por favor completa todos los campos', 'error');
+    return;
   }
+
+ 
+  const platosParaEnviar = this.itemsCarrito.map(item => ({
+    nombre: item.nombre,
+    precio: item.precio
+  }));
+
+  const reservaDTO: any = { 
+    clienteNombre: this.reserva.clienteNombre,
+    email: this.reserva.email,
+    fecha: this.reserva.fecha,
+    hora: this.reserva.hora + ':00',
+    mesaId: this.reserva.mesaId,
+    platos: platosParaEnviar,
+    total: this.totalCarrito     
+  };
+
+  this.reservaService.crearReserva(reservaDTO).subscribe({
+    next: () => {
+      this.mostrarMensaje('¡Reserva confirmada con éxito!', 'success');
+      this.limpiarFormulario();
+      this.cartService.limpiarCarrito(); 
+    },
+    error: (error: any) => {
+      this.mostrarMensaje('Error al procesar la reserva', 'error');
+    }
+  });
+}
 
   mostrarMensaje(texto: string, tipo: 'success' | 'error'): void {
     this.mensaje = texto;

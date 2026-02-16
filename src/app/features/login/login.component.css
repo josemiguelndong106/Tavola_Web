@@ -1,0 +1,106 @@
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; /* Ajustado para que no choque con el header */
+  background-color: #F9F9F7; /* Tu color crema */
+  padding: 2rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 450px;
+  background: white;
+  padding: 3.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+  text-align: center;
+}
+
+.brand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  color: #4E5F2B; /* Tu verde oliva */
+  font-style: italic;
+  margin: 0;
+}
+
+.brand-tagline {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  color: #999;
+  margin-top: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+.form-field {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.form-field label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #666;
+  margin-bottom: 0.8rem;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  outline: none;
+}
+
+.form-field input:focus {
+  border-bottom-color: #4E5F2B;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.forgot-link {
+  font-size: 0.65rem;
+  color: #B25D39; /* Un tono teja suave para resaltar sin romper la estética */
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.btn-signin {
+  width: 100%;
+  padding: 18px;
+  background-color: #4E5F2B;
+  color: white;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.3s;
+}
+
+.btn-signin:hover {
+  background-color: #3b4921;
+}
+
+.login-footer {
+  margin-top: 2.5rem;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.login-footer a {
+  color: #4E5F2B;
+  font-weight: 700;
+  text-decoration: none;
+}
