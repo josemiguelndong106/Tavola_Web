@@ -1,10 +1,14 @@
+:host {
+  display: block;
+}
+
 .login-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh; /* Ajustado para que no choque con el header */
-  background-color: #F9F9F7; /* Tu color crema */
+  min-height: 100vh;
   padding: 2rem;
+  background: var(--cream-light);
 }
 
 .login-card {
@@ -12,23 +16,35 @@
   max-width: 450px;
   background: white;
   padding: 3.5rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
   text-align: center;
+  animation: cardEntrance 0.5s var(--ease-out) both;
+}
+
+@keyframes cardEntrance {
+  from { opacity: 0; transform: scale(0.96) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .brand-name {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading);
   font-size: 2.8rem;
-  color: #4E5F2B; /* Tu verde oliva */
+  font-weight: 600;
   font-style: italic;
+  color: var(--olive);
   margin: 0;
 }
 
 .brand-tagline {
   display: block;
-  font-size: 0.65rem;
-  letter-spacing: 4px;
-  color: #999;
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  opacity: 0.5;
   margin-top: 0.5rem;
   margin-bottom: 3rem;
 }
@@ -36,30 +52,51 @@
 .form-field {
   text-align: left;
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .form-field label {
   display: block;
-  font-size: 0.75rem;
+  font-family: var(--font-label);
+  font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 1px;
-  color: #666;
-  margin-bottom: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  margin-bottom: 0.75rem;
 }
 
 .form-field input {
   width: 100%;
   padding: 12px 0;
   border: none;
-  border-bottom: 1px solid #e0e0e0;
-  font-family: 'Lato', sans-serif;
+  border-bottom: 1.5px solid var(--cream-dark);
+  font-family: var(--font-body);
   font-size: 1rem;
+  color: var(--charcoal);
+  background: transparent;
   transition: border-color 0.3s;
   outline: none;
 }
 
 .form-field input:focus {
-  border-bottom-color: #4E5F2B;
+  border-bottom-color: var(--olive);
+}
+
+.form-field::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--olive);
+  transition: width 0.3s var(--ease-out), left 0.3s var(--ease-out);
+}
+
+.form-field:focus-within::after {
+  width: 100%;
+  left: 0;
 }
 
 .label-row {
@@ -69,38 +106,65 @@
 }
 
 .forgot-link {
-  font-size: 0.65rem;
-  color: #B25D39; /* Un tono teja suave para resaltar sin romper la estética */
-  text-decoration: none;
+  font-family: var(--font-label);
+  font-size: 0.6rem;
   font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--orange);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.forgot-link:hover {
+  color: var(--olive);
 }
 
 .btn-signin {
   width: 100%;
-  padding: 18px;
-  background-color: #4E5F2B;
+  padding: 16px;
+  background: var(--olive);
   color: white;
   border: none;
-  font-family: 'Lato', sans-serif;
+  border-radius: 8px;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   cursor: pointer;
   margin-top: 1rem;
-  transition: background 0.3s;
+  transition: all 0.3s var(--ease-out);
 }
 
 .btn-signin:hover {
-  background-color: #3b4921;
+  background: var(--olive-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 90, 43, 0.35);
+}
+
+.btn-signin:active {
+  transform: translateY(0);
 }
 
 .login-footer {
   margin-top: 2.5rem;
   font-size: 0.8rem;
-  color: #999;
+  color: var(--charcoal-light);
 }
 
 .login-footer a {
-  color: #4E5F2B;
+  color: var(--olive);
   font-weight: 700;
   text-decoration: none;
+  transition: color 0.2s;
+}
+
+.login-footer a:hover {
+  color: var(--orange);
+}
+
+@media (max-width: 480px) {
+  .login-card { padding: 2rem 1.5rem; }
+  .brand-name { font-size: 2rem; }
+  .brand-tagline { margin-bottom: 2rem; }
 }

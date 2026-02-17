@@ -1,11 +1,31 @@
 <div class="reservation-container">
   <div class="reservation-layout">
-    
+
     <div class="form-wrapper">
+      <div class="gradient-bar"></div>
+
+      <!-- Step Indicator -->
+      <div class="steps">
+        <div class="step active">
+          <div class="step-circle">1</div>
+          <span>{{ 'res.step1' | translate }}</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-circle">2</div>
+          <span>{{ 'res.step2' | translate }}</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-circle">3</div>
+          <span>{{ 'res.step3' | translate }}</span>
+        </div>
+      </div>
+
       <div class="header-text">
-        <span class="subtitle">RESERVA TU MESA</span>
-        <h1>Una Velada Inolvidable</h1>
-        <p>Asegure su experiencia gastronómica con nosotros.</p>
+        <span class="subtitle">{{ 'res.subtitle' | translate }}</span>
+        <h1>{{ 'res.title' | translate }}</h1>
+        <p>{{ 'res.desc' | translate }}</p>
       </div>
 
       <div *ngIf="mensaje" class="alert" [ngClass]="tipoMensaje">
@@ -13,40 +33,65 @@
       </div>
 
       <form (ngSubmit)="confirmarReserva()" #reservaForm="ngForm">
-        <div class="form-group">
-          <label>Nombre Completo</label>
-          <input type="text" [(ngModel)]="reserva.clienteNombre" name="nombre" required placeholder="Ej. Juan Pérez">
-        </div>
-
-        <div class="form-group">
-          <label>Correo Electrónico</label>
-          <input type="email" [(ngModel)]="reserva.email" name="email" required placeholder="ejemplo@correo.com">
-        </div>
-
-        <div class="row">
+        <div class="form-grid">
           <div class="form-group">
-            <label>Fecha</label>
+            <label>{{ 'res.name' | translate }}</label>
+            <input type="text" [(ngModel)]="reserva.clienteNombre" name="nombre" required [placeholder]="'res.name_placeholder' | translate">
+          </div>
+
+          <div class="form-group">
+            <label>{{ 'res.email' | translate }}</label>
+            <input type="email" [(ngModel)]="reserva.email" name="email" required [placeholder]="'res.email_placeholder' | translate">
+          </div>
+
+          <div class="form-group">
+            <label>{{ 'res.date' | translate }}</label>
             <input type="date" [(ngModel)]="reserva.fecha" name="fecha" required>
           </div>
+
           <div class="form-group">
-            <label>Hora</label>
+            <label>{{ 'res.time' | translate }}</label>
             <input type="time" [(ngModel)]="reserva.hora" name="hora" required>
+          </div>
+
+          <div class="form-group">
+            <label>{{ 'res.guests' | translate }}</label>
+            <select [(ngModel)]="reserva.comensales" name="comensales">
+              <option value="" disabled selected>{{ 'res.guests_placeholder' | translate }}</option>
+              <option *ngFor="let n of [1,2,3,4,5,6,7]" [value]="n">{{ n }} {{ n === 1 ? 'persona' : 'personas' }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>{{ 'res.table' | translate }}</label>
+            <input type="number" [(ngModel)]="reserva.mesaId" name="mesaId" required [placeholder]="'res.table_placeholder' | translate">
+          </div>
+
+          <div class="form-group">
+            <label>{{ 'res.table_pref' | translate }}</label>
+            <select [(ngModel)]="reserva.preferenciaMesa" name="preferenciaMesa">
+              <option value="" disabled selected>{{ 'res.guests_placeholder' | translate }}</option>
+              <option value="interior">{{ 'res.pref_interior' | translate }}</option>
+              <option value="terraza">{{ 'res.pref_terrace' | translate }}</option>
+              <option value="barra">{{ 'res.pref_bar' | translate }}</option>
+              <option value="privado">{{ 'res.pref_private' | translate }}</option>
+            </select>
           </div>
         </div>
 
-        <div class="form-group">
-          <label>Número de Mesa</label>
-          <input type="number" [(ngModel)]="reserva.mesaId" name="mesaId" required placeholder="Ej. 3">
+        <div class="form-group full-width">
+          <label>{{ 'res.notes' | translate }}</label>
+          <textarea [(ngModel)]="reserva.observaciones" name="observaciones" rows="3" [placeholder]="'res.notes_placeholder' | translate"></textarea>
         </div>
 
-        <button type="submit" class="btn-olive" [disabled]="!reservaForm.form.valid">
-          CONFIRMAR RESERVA
+        <button type="submit" class="btn-olive" [disabled]="!reservaForm.form.valid" [class.confirmed]="reservaConfirmada">
+          {{ reservaConfirmada ? ('res.confirmed' | translate) : ('res.confirm' | translate) }}
         </button>
       </form>
     </div>
 
     <div class="cart-summary" *ngIf="itemsCarrito.length > 0">
-      <h3>Tu Selección</h3>
+      <h3>{{ 'res.selection' | translate }}</h3>
       <div class="cart-items">
         <div *ngFor="let item of itemsCarrito" class="cart-item">
           <span>{{ item.nombre }}</span>
@@ -54,43 +99,69 @@
         </div>
       </div>
       <div class="total">
-        <strong>Total Pre-pedido:</strong>
+        <strong>{{ 'res.total' | translate }}</strong>
         <span class="total-amount">{{ totalCarrito | currency:'EUR' }}</span>
       </div>
-      <p class="note">* El pago de las consumiciones se realizará en el restaurante.</p>
-      <button class="btn-clear" (click)="cartService.limpiarCarrito()">Cambiar selección</button>
+      <p class="note">{{ 'res.note' | translate }}</p>
+      <button class="btn-clear" (click)="cartService.limpiarCarrito()">{{ 'res.change' | translate }}</button>
     </div>
 
   </div>
 </div>
 
+<!-- ========== Footer ========== -->
 <footer class="main-footer">
+  <div class="footer-gradient"></div>
   <div class="footer-content">
     <div class="footer-brand">
       <h2 class="footer-logo">La Tavola</h2>
-      <span class="footer-tagline">360 RESTAURANT MANAGEMENT</span>
-      <p class="footer-desc">
-        Una experiencia gastronómica dedicada a la excelencia, <br>
-        la tradición mediterránea y el buen gusto.
-      </p>
-    </div>
-    <nav class="footer-nav">
-      <a routerLink="/home">Inicio</a>
-      <a routerLink="/menu">Nuestra Carta</a>
-      <a routerLink="/reservas">Reservas</a>
-      <a routerLink="/nosotros">Nosotros</a>
-      <a routerLink="/contacto">Contacto</a>
-    </nav>
-    
-    <div class="footer-legal">
-      <div class="legal-links">
-        <a href="#">Aviso Legal</a>
-        <a href="#">Política de Privacidad</a>
-        <a href="#">Cookies</a>
-        <a href="#">Alérgenos</a>
-        <a routerLink="/login" class="staff-access">Acceso Staff</a>
+      <span class="footer-tagline">{{ 'footer.tagline' | translate }}</span>
+      <p class="footer-desc">{{ 'footer.desc' | translate }}</p>
+      <div class="social-icons">
+        <a href="#" class="icon-link" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="#" class="icon-link" aria-label="Facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+        <a href="#" class="icon-link" aria-label="Twitter">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+        </a>
       </div>
-      <p class="copyright">© 2026 La Tavola Restaurant. Todos los derechos reservados.</p>
+    </div>
+    <div class="footer-col">
+      <h4>{{ 'footer.nav_title' | translate }}</h4>
+      <nav class="footer-nav-links">
+        <a routerLink="/home">{{ 'header.home' | translate }}</a>
+        <a routerLink="/menu">{{ 'header.menu' | translate }}</a>
+        <a routerLink="/reservas">{{ 'header.reservations' | translate }}</a>
+        <a routerLink="/nosotros">{{ 'header.about' | translate }}</a>
+        <a routerLink="/contacto">{{ 'header.contact' | translate }}</a>
+      </nav>
+    </div>
+    <div class="footer-col">
+      <h4>{{ 'footer.hours_title' | translate }}</h4>
+      <p>{{ 'footer.hours_lunch' | translate }}</p>
+      <p>{{ 'footer.hours_dinner' | translate }}</p>
+      <p class="closed">{{ 'footer.hours_closed' | translate }}</p>
+    </div>
+    <div class="footer-col">
+      <h4>{{ 'footer.contact_title' | translate }}</h4>
+      <p>{{ 'footer.address' | translate }}</p>
+      <p>{{ 'footer.phone' | translate }}</p>
+      <p>{{ 'footer.email' | translate }}</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-content">
+      <div class="legal-links">
+        <a href="#">{{ 'footer.legal' | translate }}</a>
+        <a href="#">{{ 'footer.privacy' | translate }}</a>
+        <a href="#">{{ 'footer.cookies' | translate }}</a>
+        <a href="#">{{ 'footer.allergens' | translate }}</a>
+        <a routerLink="/login" class="staff-access">{{ 'footer.staff' | translate }}</a>
+      </div>
+      <p class="copyright">{{ 'footer.copyright' | translate }}</p>
     </div>
   </div>
 </footer>

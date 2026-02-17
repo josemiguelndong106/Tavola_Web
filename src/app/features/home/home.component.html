@@ -1,32 +1,39 @@
+<!-- ========== Hero ========== -->
 <header class="hero">
   <div class="overlay">
     <div class="hero-content">
-      <h1>Sabores que cuentan<br>una historia</h1>
-      <p>Una experiencia culinaria única inspirada en la tradición mediterránea y los ingredientes más frescos de nuestra tierra.</p>
-      
-      <div class="buttons-wrapper">
-        <a routerLink="/reservas" class="btn-primary">Reservar Mesa</a>
-        <a routerLink="/menu" class="btn-secondary">Ver Menú</a>
+      <span class="hero-label hero-animate delay-1">{{ 'home.hero_label' | translate }}</span>
+      <h1 class="hero-animate delay-2" [innerHTML]="'home.hero_title' | translate"></h1>
+      <p class="hero-animate delay-3">{{ 'home.hero_subtitle' | translate }}</p>
+
+      <div class="buttons-wrapper hero-animate delay-4">
+        <a routerLink="/reservas" class="btn-primary">{{ 'home.reserve' | translate }}</a>
+        <a routerLink="/menu" class="btn-secondary">{{ 'home.see_menu' | translate }}</a>
       </div>
+    </div>
+
+    <div class="scroll-indicator hero-animate delay-5">
+      <span>{{ 'home.scroll_discover' | translate }}</span>
+      <div class="scroll-line"></div>
     </div>
   </div>
 </header>
 
+<!-- ========== Heritage ========== -->
 <section class="heritage-section">
-  <div class="container split-layout">
-    
-    <div class="text-col">
-      <span class="tagline">DESDE 1984</span>
-      <h2>Nuestra Herencia</h2>
+  <div class="heritage-layout">
+
+    <div class="text-col fade-in-left" appScrollAnimate>
+      <span class="tagline">{{ 'home.since' | translate }}</span>
+      <h2>{{ 'home.heritage_title' | translate }}</h2>
       <div class="separator"></div>
-      
-      <p>Desde nuestros humildes comienzos, hemos buscado honrar las recetas tradicionales transmitidas por generaciones, elevándolas con un toque contemporáneo y una pasión inigualable por el detalle.</p>
-      <p>Creemos que la cocina es el alma de un hogar, y nuestro restaurante es el hogar donde compartimos la esencia de la dieta mediterránea: salud, sabor y celebración.</p>
-      
-      <a routerLink="/nosotros" class="btn-primary">Conoce nuestra historia</a>
+      <p>{{ 'home.heritage_p1' | translate }}</p>
+      <p>{{ 'home.heritage_p2' | translate }}</p>
+      <a routerLink="/nosotros" class="btn-link">{{ 'home.heritage_btn' | translate }} →</a>
     </div>
 
-    <div class="images-col">
+    <div class="images-col fade-in-right" appScrollAnimate>
+      <div class="watermark">1984</div>
       <div class="img-main">
         <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80" alt="Ingredientes frescos">
       </div>
@@ -37,63 +44,133 @@
     </div>
 
   </div>
-</section>
 
-<section class="cta-section">
-  <div class="cta-card">
-    <div class="stars">✨ ✨ ✨</div>
-    <h2>¿Listo para una experiencia<br>inolvidable?</h2>
-    <p>Asegure su mesa hoy mismo y déjenos sorprenderle con lo mejor de nuestra cocina en un ambiente íntimo y acogedor.</p>
-    
-    <div class="buttons-wrapper">
-      <a routerLink="/reservas" class="btn-primary">Reservar Mesa</a>
-      <a routerLink="/menu" class="btn-secondary btn-white">Ver Menú Completo</a>
+  <!-- Counter Grid -->
+  <div class="counter-grid" #counterSection>
+    <div class="counter-item fade-in-up" appScrollAnimate *ngFor="let c of counters; let i = index" [style.transition-delay]="(i * 0.15) + 's'">
+      <span class="counter-number">{{ c.current }}{{ c.suffix }}</span>
+      <span class="counter-label">{{ c.labelKey | translate }}</span>
     </div>
   </div>
 </section>
 
+<!-- ========== Stats Bar ========== -->
+<section class="stats-bar">
+  <div class="stats-grid fade-in-up" appScrollAnimate>
+    <div class="stat-item">
+      <span class="stat-value">4.8</span>
+      <span class="stat-label">{{ 'home.stats_reviews' | translate }}</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">1</span>
+      <span class="stat-label">{{ 'home.stats_michelin' | translate }}</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">200+</span>
+      <span class="stat-label">{{ 'home.stats_wines' | translate }}</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">95%</span>
+      <span class="stat-label">{{ 'home.stats_local' | translate }}</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="cta-section">
+  <div class="cta-overlay">
+    <div class="cta-content fade-in-up" appScrollAnimate>
+      <span class="cta-ornament">— ✦ —</span>
+      <h2 [innerHTML]="'home.cta_title' | translate"></h2>
+      <p>{{ 'home.cta_subtitle' | translate }}</p>
+      <div class="buttons-wrapper">
+        <a routerLink="/reservas" class="btn-primary">{{ 'home.reserve' | translate }}</a>
+        <a routerLink="/menu" class="btn-secondary">{{ 'home.see_full_menu' | translate }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Testimonials ========== -->
+<section class="testimonials-section">
+  <div class="testimonials-container">
+    <h2 class="section-title fade-in-up" appScrollAnimate>{{ 'home.testimonials_title' | translate }}</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-in-up" appScrollAnimate *ngFor="let t of testimonials; let i = index" [style.transition-delay]="(i * 0.15) + 's'">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">{{ t.textKey | translate }}</p>
+        <div class="testimonial-author">
+          <div class="avatar">{{ t.initials }}</div>
+          <div class="author-info">
+            <span class="author-name">{{ t.name }}</span>
+            <span class="author-source">{{ t.source }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="quote-watermark">"</div>
+</section>
+
+<!-- ========== Footer ========== -->
 <footer class="main-footer">
+  <div class="footer-gradient"></div>
   <div class="footer-content">
-    
+
     <div class="footer-brand">
       <h2 class="footer-logo">La Tavola</h2>
-      <span class="footer-tagline">360 RESTAURANT MANAGEMENT</span>
-      <p class="footer-desc">
-        Una experiencia gastronómica dedicada a la excelencia, <br>
-        la tradición mediterránea y el buen gusto.
-      </p>
-    </div>
-
-    <nav class="footer-nav">
-      <a routerLink="/home">Inicio</a>
-      <a routerLink="/menu">Nuestra Carta</a>
-      <a routerLink="/reservas">Reservas</a>
-      <a routerLink="/nosotros">Nosotros</a>
-      <a routerLink="/contacto">Contacto</a>
-    </nav>
-
-    <div class="social-icons">
-      <a href="#" class="icon-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-      </a>
-      <a href="#" class="icon-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-      </a>
-      <a href="#" class="icon-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-      </a>
-    </div>
-
-    <div class="footer-legal">
-      <div class="legal-links">
-        <a href="#">Aviso Legal</a>
-        <a href="#">Política de Privacidad</a>
-        <a href="#">Cookies</a>
-        <a href="#">Alérgenos</a>
-        <a routerLink="/login" class="staff-access">Acceso Staff</a>
+      <span class="footer-tagline">{{ 'footer.tagline' | translate }}</span>
+      <p class="footer-desc">{{ 'footer.desc' | translate }}</p>
+      <div class="social-icons">
+        <a href="#" class="icon-link" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="#" class="icon-link" aria-label="Facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+        <a href="#" class="icon-link" aria-label="Twitter">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+        </a>
       </div>
-      <p class="copyright">© 2026 La Tavola Restaurant. Todos los derechos reservados.</p>
     </div>
 
+    <div class="footer-col">
+      <h4>{{ 'footer.nav_title' | translate }}</h4>
+      <nav class="footer-nav">
+        <a routerLink="/home">{{ 'header.home' | translate }}</a>
+        <a routerLink="/menu">{{ 'header.menu' | translate }}</a>
+        <a routerLink="/reservas">{{ 'header.reservations' | translate }}</a>
+        <a routerLink="/nosotros">{{ 'header.about' | translate }}</a>
+        <a routerLink="/contacto">{{ 'header.contact' | translate }}</a>
+      </nav>
+    </div>
+
+    <div class="footer-col">
+      <h4>{{ 'footer.hours_title' | translate }}</h4>
+      <p>{{ 'footer.hours_lunch' | translate }}</p>
+      <p>{{ 'footer.hours_dinner' | translate }}</p>
+      <p class="closed">{{ 'footer.hours_closed' | translate }}</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>{{ 'footer.contact_title' | translate }}</h4>
+      <p>{{ 'footer.address' | translate }}</p>
+      <p>{{ 'footer.phone' | translate }}</p>
+      <p>{{ 'footer.email' | translate }}</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom-content">
+      <div class="legal-links">
+        <a href="#">{{ 'footer.legal' | translate }}</a>
+        <a href="#">{{ 'footer.privacy' | translate }}</a>
+        <a href="#">{{ 'footer.cookies' | translate }}</a>
+        <a href="#">{{ 'footer.allergens' | translate }}</a>
+        <a routerLink="/login" class="staff-access">{{ 'footer.staff' | translate }}</a>
+      </div>
+      <p class="copyright">{{ 'footer.copyright' | translate }}</p>
+    </div>
   </div>
 </footer>

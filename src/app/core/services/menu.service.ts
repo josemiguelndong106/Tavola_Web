@@ -9,6 +9,8 @@ export interface Plato {
   precio: number;
   imagen: string;
   categoria: string;
+  nombreEn?: string;
+  descripcionEn?: string;
 }
 
 @Injectable({

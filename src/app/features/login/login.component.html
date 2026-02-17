@@ -1,30 +1,30 @@
 <div class="login-wrapper">
   <div class="login-card">
-    
+
     <div class="login-header">
       <h1 class="brand-name">La Tavola</h1>
-      <span class="brand-tagline">360 RESTAURANT MANAGEMENT</span>
+      <span class="brand-tagline">{{ 'footer.tagline' | translate }}</span>
     </div>
 
     <form class="login-form">
       <div class="form-field">
-        <label>CORREO ELECTRÓNICO</label>
-        <input type="email" placeholder="usuario" name="email">
+        <label>{{ 'login.email' | translate }}</label>
+        <input type="email" [placeholder]="'login.user_placeholder' | translate" name="email">
       </div>
 
       <div class="form-field">
         <div class="label-row">
-          <label>CONTRASEÑA</label>
-          <a href="#"  class="forgot-link">OLVIDÉ MI CLAVE</a>
+          <label>{{ 'login.password' | translate }}</label>
+          <a href="#" class="forgot-link">{{ 'login.forgot' | translate }}</a>
         </div>
-        <input type="password" placeholder="contraseña" name="password">
+        <input type="password" [placeholder]="'login.pass_placeholder' | translate" name="password">
       </div>
 
-      <button type="button" class="btn-signin">INICIAR SESIÓN</button>
+      <button type="button" class="btn-signin">{{ 'login.signin' | translate }}</button>
     </form>
 
     <div class="login-footer">
-      <p>¿No tienes acceso? <a href="#">Contacta al administrador</a></p>
+      <p>{{ 'login.no_access' | translate }} <a href="#">{{ 'login.contact_admin' | translate }}</a></p>
     </div>
   </div>
 </div>

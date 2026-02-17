@@ -1,1 +1,115 @@
-/* You can add global styles to this file, and also import other style files */
+/* ========== Design Tokens ========== */
+:root {
+  --olive: #4a5a2b;
+  --olive-dark: #3a4820;
+  --olive-light: #6b7f3a;
+  --orange: #d4762c;
+  --orange-light: #e8944a;
+  --cream: #f5f0e8;
+  --cream-dark: #ebe4d8;
+  --cream-light: #faf8f4;
+  --charcoal: #2a2a2a;
+  --charcoal-light: #4a4a4a;
+  --gold: #c9a84c;
+  --gold-light: #dfc06e;
+  --white: #ffffff;
+  --black: #000000;
+
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-label: 'Montserrat', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ========== Global Reset ========== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--charcoal);
+  background: var(--cream-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ========== Scroll Animations ========== */
+.fade-in-up,
+.fade-in-left,
+.fade-in-right,
+.scale-in,
+.reveal,
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+
+.fade-in-up,
+.reveal       { transform: translateY(60px); }
+.fade-in-left,
+.reveal-left  { transform: translateX(-60px); }
+.fade-in-right,
+.reveal-right { transform: translateX(60px); }
+.scale-in     { transform: scale(0.92); }
+
+.fade-in-up.visible,
+.fade-in-left.visible,
+.fade-in-right.visible,
+.scale-in.visible,
+.reveal.visible,
+.reveal-left.visible,
+.reveal-right.visible {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+/* Stagger delays */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+.delay-6 { transition-delay: 0.6s; }
+
+/* ========== Hero entrance keyframes ========== */
+@keyframes heroFadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-animate {
+  opacity: 0;
+  animation: heroFadeInUp 1s var(--ease-out) both;
+}
+
+.hero-animate.delay-1 { animation-delay: 2.0s; }
+.hero-animate.delay-2 { animation-delay: 2.2s; }
+.hero-animate.delay-3 { animation-delay: 2.4s; }
+.hero-animate.delay-4 { animation-delay: 2.6s; }
+.hero-animate.delay-5 { animation-delay: 2.8s; }
+
+/* ========== Utility ========== */
+.gold { color: var(--gold-light); }

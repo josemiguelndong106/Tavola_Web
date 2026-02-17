@@ -1,18 +1,26 @@
+<app-loader></app-loader>
 <app-header></app-header>
 
-<main style="min-height: 80vh;">
-  <router-outlet></router-outlet>
+<main [@routeAnimation]="outlet.activatedRouteData">
+  <router-outlet #outlet="outlet"></router-outlet>
 </main>
 
+<!-- Scroll to top -->
+<button class="scroll-top" [class.visible]="showScrollTop" (click)="scrollToTop()" aria-label="Scroll to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
+<!-- Chat launcher -->
 <div class="chat-launcher" (click)="toggleChat()">
   <span *ngIf="!chatAbierto">💬</span>
   <span *ngIf="chatAbierto">✕</span>
 </div>
 
+<!-- Chat window -->
 <div class="chat-window" [class.active]="chatAbierto">
   <div class="chat-header">
-    <h3>Asistente La Tavola</h3>
-    <p>¿En qué puedo ayudarte hoy?</p>
+    <h3>{{ 'chat.title' | translate }}</h3>
+    <p>{{ 'chat.subtitle' | translate }}</p>
   </div>
 
   <div class="chat-body">
@@ -22,12 +30,12 @@
   </div>
 
   <div class="chat-footer">
-    <input 
-      type="text" 
-      [(ngModel)]="nuevoMensaje" 
-      (keyup.enter)="enviarMensaje()" 
-      placeholder="Escribe tu duda..."
+    <input
+      type="text"
+      [(ngModel)]="nuevoMensaje"
+      (keyup.enter)="enviarMensaje()"
+      [placeholder]="'chat.placeholder' | translate"
     >
-    <button (click)="enviarMensaje()">Enviar</button>
+    <button (click)="enviarMensaje()">{{ 'chat.send' | translate }}</button>
   </div>
 </div>
