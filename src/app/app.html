@@ -18,24 +18,66 @@
 
 <!-- Chat window -->
 <div class="chat-window" [class.active]="chatAbierto">
-  <div class="chat-header">
-    <h3>{{ 'chat.title' | translate }}</h3>
-    <p>{{ 'chat.subtitle' | translate }}</p>
-  </div>
 
-  <div class="chat-body">
-    <div *ngFor="let m of mensajes" [ngClass]="['message', m.emisor]">
-      {{ m.texto }}
+  <!-- Header -->
+  <div class="chat-header">
+    <div class="header-avatar">
+      <span class="avatar-letter">T</span>
+    </div>
+    <div class="header-info">
+      <h1 class="header-title">{{ 'chat.title' | translate }}</h1>
+      <span class="status-text">
+        <span class="status-dot"></span>
+        {{ 'chat.subtitle' | translate }}
+      </span>
+    </div>
+  </div>
+  <div class="header-gold-line"></div>
+
+  <!-- Messages -->
+  <div class="chat-messages" #chatBody>
+    <div class="date-divider"><span>Hoy</span></div>
+
+    <div *ngFor="let m of mensajes" class="message-row" [ngClass]="m.emisor === 'bot' ? 'bot' : 'user'">
+      <div *ngIf="m.emisor === 'bot'" class="bot-avatar-small">
+        <span class="avatar-letter-small">T</span>
+      </div>
+      <div class="message-content">
+        <div class="message-bubble">
+          <p class="message-text">{{ m.texto }}</p>
+          <span class="message-time">{{ formatTime(m.timestamp) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Typing indicator -->
+    <div *ngIf="isTyping" class="message-row bot">
+      <div class="bot-avatar-small">
+        <span class="avatar-letter-small">T</span>
+      </div>
+      <div class="message-content">
+        <div class="message-bubble typing-bubble">
+          <div class="typing-indicator">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="chat-footer">
-    <input
-      type="text"
-      [(ngModel)]="nuevoMensaje"
-      (keyup.enter)="enviarMensaje()"
-      [placeholder]="'chat.placeholder' | translate"
-    >
-    <button (click)="enviarMensaje()">{{ 'chat.send' | translate }}</button>
+  <!-- Input -->
+  <div class="chat-input-area">
+    <div class="input-container">
+      <input
+        type="text"
+        [(ngModel)]="nuevoMensaje"
+        (keyup.enter)="enviarMensaje()"
+        [placeholder]="'chat.placeholder' | translate"
+        [disabled]="isTyping"
+      >
+      <button class="send-btn" (click)="enviarMensaje()" [disabled]="!nuevoMensaje.trim() || isTyping">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
+    </div>
   </div>
 </div>

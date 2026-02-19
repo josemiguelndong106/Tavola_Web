@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './shared/header/header';
@@ -7,6 +7,7 @@ import { trigger, transition, style, animate, query, group } from '@angular/anim
 import { TranslationService } from './core/services/translation.service';
 import { TranslatePipe } from './shared/pipes/translate.pipe';
 import { LoaderComponent } from './shared/components/loader/loader.component';
+import { ChatService, ChatMessage } from './core/services/chat.service';
 
 const routeAnimation = trigger('routeAnimation', [
   transition('* <=> *', [
@@ -32,21 +33,36 @@ const routeAnimation = trigger('routeAnimation', [
   styleUrls: ['./app.css'],
   animations: [routeAnimation],
 })
-export class App {
+export class App implements AfterViewChecked {
   title = 'La_Tavola';
   chatAbierto = false;
   showScrollTop = false;
+  isTyping = false;
 
-  mensajes: { emisor: string; texto: string }[] = [];
+  mensajes: ChatMessage[] = [];
   nuevoMensaje = '';
 
-  constructor(public ts: TranslationService) {
-    this.mensajes = [{ emisor: 'bot', texto: this.ts.t('chat.welcome') }];
+  @ViewChild('chatBody') private chatBody!: ElementRef;
+  private shouldScroll = false;
+
+  constructor(
+    public ts: TranslationService,
+    private chatService: ChatService
+  ) {
+    this.addBotMessage(this.ts.t('chat.welcome'));
     this.ts.lang$.subscribe(() => {
       if (this.mensajes.length === 1 && this.mensajes[0].emisor === 'bot') {
-        this.mensajes = [{ emisor: 'bot', texto: this.ts.t('chat.welcome') }];
+        this.mensajes = [];
+        this.addBotMessage(this.ts.t('chat.welcome'));
       }
     });
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.shouldScroll) {
+      this.scrollChatToBottom();
+      this.shouldScroll = false;
+    }
   }
 
   @HostListener('window:scroll')
@@ -60,23 +76,44 @@ export class App {
 
   toggleChat() {
     this.chatAbierto = !this.chatAbierto;
+    if (this.chatAbierto) {
+      this.shouldScroll = true;
+    }
   }
 
   enviarMensaje() {
-    if (this.nuevoMensaje.trim()) {
-      this.mensajes.push({ emisor: 'usuario', texto: this.nuevoMensaje });
-      const consulta = this.nuevoMensaje.toLowerCase();
-      this.nuevoMensaje = '';
+    const texto = this.nuevoMensaje.trim();
+    if (!texto || this.isTyping) return;
 
-      setTimeout(() => {
-        if (consulta.includes('horario') || consulta.includes('schedule') || consulta.includes('hours') || consulta.includes('open')) {
-          this.mensajes.push({ emisor: 'bot', texto: this.ts.t('chat.schedule_response') });
-        } else if (consulta.includes('recomienda') || consulta.includes('plato') || consulta.includes('recommend') || consulta.includes('dish') || consulta.includes('special')) {
-          this.mensajes.push({ emisor: 'bot', texto: this.ts.t('chat.recommend_response') });
-        } else {
-          this.mensajes.push({ emisor: 'bot', texto: this.ts.t('chat.default_response') });
-        }
-      }, 1000);
+    this.mensajes.push({ emisor: 'usuario', texto, timestamp: new Date() });
+    this.nuevoMensaje = '';
+    this.isTyping = true;
+    this.shouldScroll = true;
+
+    this.chatService.sendMessage(texto).subscribe({
+      next: (respuesta) => {
+        this.isTyping = false;
+        this.addBotMessage(respuesta);
+      },
+      error: () => {
+        this.isTyping = false;
+        this.addBotMessage('No se pudo conectar con el servidor. Inténtalo de nuevo.');
+      }
+    });
+  }
+
+  formatTime(date: Date): string {
+    return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  private addBotMessage(texto: string): void {
+    this.mensajes.push({ emisor: 'bot', texto, timestamp: new Date() });
+    this.shouldScroll = true;
+  }
+
+  private scrollChatToBottom(): void {
+    if (this.chatBody) {
+      this.chatBody.nativeElement.scrollTop = this.chatBody.nativeElement.scrollHeight;
     }
   }
 }
